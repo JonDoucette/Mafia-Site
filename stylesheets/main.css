@@ -1,0 +1,47 @@
+* {
+    font-family: monospace;
+}
+
+button{
+    border-radius: 30px;
+    background-color:gray;
+    justify-content: center;
+    outline:none;
+    height: 30px;
+    width: 60px;
+}
+button:hover{
+    background-color:green;
+}
+
+.flex-container {
+    display: flex;
+    justify-content: center;
+}
+
+.flex-container > div {
+    display: inline-block;
+    margin: 100px;
+    padding: 20px;
+    border-color: black;
+    font-size: 100px;
+    background-size: 150px;
+    width: 110px;
+    height: 110px;
+}
+
+.a1 {
+    background-image: url("../images/100.png");
+}
+.a2 {
+    background-image: url("../images/medal.png");
+}
+.a3 {
+    background-image: url("../images/dollar.png");
+}
+.a4 {
+    background-image: url("../images/moneybag.png");
+}
+.a5 {
+    background-image: url("../images/gem.png");
+}
