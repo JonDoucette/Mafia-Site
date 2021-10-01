@@ -75,5 +75,5 @@ function hideRoomValues(){
 
   //Displays the Active Room number
   document.getElementById("activeRoom").style.display="block";
-  document.getElementById("activeRoom").innerHTML = "Active Room Number: " + String(chosenRoom);
+  document.getElementById("activeRoom").innerHTML = "Room Name: " + String(chosenRoom);
 }
