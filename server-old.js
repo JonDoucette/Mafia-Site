@@ -1,38 +1,27 @@
-const express = require('express');
-const app = express();
+const io = require('socket.io')({
+  cors: {
+    origin: "*",
+    methods: ["GET", "POST"],
+    allowedHeaders: ['Access-Control-Allow-Private-Network: true', 'Access-Control-Allow-Origin: *'],
 
+  },
+},
+  
+);
+io.listen(process.env.PORT || 3000)
 
-//Allow for CORS to get in
-app.all('*', function(req, res, next) {
-  res.header('Access-Control-Allow-Origin', '*');
-  res.header('Access-Control-Allow-Methods', 'PUT, GET, POST, DELETE, OPTIONS');
-  res.header('Access-Control-Allow-Headers', 'Content-Type');
-  next();
-});
+//var httpServer = require("http").createServer();
+//var io = require('socket.io')(httpServer, {
+//  cors: {
+//    origin: "*",
+//  }
+//})
 
-const http = require('http');
-const server = http.createServer(app);
-var io = require('socket.io')(server);
+console.log(process.env.PORT)
 
-var path = require('path');
-
-
-//Send over the frontend information to the client side.
-var htmlPath = path.join(__dirname, 'frontend');
-app.use(express.static(htmlPath)) 
-
-
-//app.use(cors())
-//app.options('*', cors())
-
-
-
-app.get('/', (req, res) => {
-  res.sendFile('/frontend/', {root: __dirname });
-
-});
 
 var roomCount = {}; 
+
 io.on("connection", socket => {
   // either with send()
   socket.send("Howdy from the socket");
@@ -84,10 +73,4 @@ io.on("connection", socket => {
 
 
 
-});
-
-
-
-server.listen(3000, () => {
-  console.log('listening on *:3000');
 });
