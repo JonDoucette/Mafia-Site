@@ -1,6 +1,10 @@
 //Establishing a connection with the server on port 3000
-const socket = io('http://192.168.10.185:3000');
+//const socket = io('http://192.168.10.185:3000');
 //const socket = io.connect();
+
+//heroku server
+const socket = io('https://serene-peak-32376.herokuapp.com/');
+
 
 //Grabbing the button element by the ID
 var switchButton = document.getElementById('switchButton');
