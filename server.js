@@ -1,4 +1,22 @@
-const io = require('socket.io')(3000);
+const io = require('socket.io')(3000, {
+  cors: {
+    origin: "*",
+    methods: ["GET", "POST"],
+    allowedHeaders: ['Access-Control-Allow-Private-Network: true', 'Access-Control-Allow-Origin: *'],
+
+  },
+},
+  
+);
+
+
+//var httpServer = require("http").createServer();
+//var io = require('socket.io')(httpServer, {
+//  cors: {
+//    origin: "*",
+//  }
+//})
+
 
 var roomCount = {}; 
 
@@ -6,6 +24,9 @@ io.on("connection", socket => {
   // either with send()
   socket.send("Howdy from the socket");
 
+  socket.on("connect_error", (err) => {
+    console.log(`connect_error due to ${err.message}`);
+  });
 
   socket.on("buttonSubmitted", data => {
     console.log("Submit Button was pressed");
@@ -24,15 +45,15 @@ io.on("connection", socket => {
     console.log(map.get('1'))
 
     //Get client ids from clients connected to Room 1 to array 
-    roles = [...map.get('1').values()]
-    console.log(roles)
+    //roles = [...map.get('1').values()]
+    //console.log(roles)
     //Connected users
-    console.log(roles.length)
+    //console.log(roles.length)
     //console.log(map.values())
     //console.log(io.sockets.adapter.rooms)
 
-    console.log(roles[0])
-    socket.broadcast.to(roles[0]).emit('message', 'Message to you as a client')
+    //console.log(roles[0])
+    //socket.broadcast.to(roles[0]).emit('message', 'Message to you as a client')
     //console.log(io.sockets.sockets.get(clientId));
     console.log()
 
