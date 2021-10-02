@@ -1,4 +1,4 @@
-const io = require('socket.io')(process.env.PORT || 3000, {
+const io = require('socket.io')({
   cors: {
     origin: "*",
     methods: ["GET", "POST"],
@@ -8,7 +8,7 @@ const io = require('socket.io')(process.env.PORT || 3000, {
 },
   
 );
-
+io.listen(process.env.PORT || 3000)
 
 //var httpServer = require("http").createServer();
 //var io = require('socket.io')(httpServer, {
