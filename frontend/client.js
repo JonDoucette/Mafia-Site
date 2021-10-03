@@ -4,15 +4,11 @@ const socket = io('http://localhost:3000');
 //heroku server
 //const socket = io("https://serene-peak-32376.herokuapp.com/");
 
-
-//Grabbing the button element by the ID
-var switchButton = document.getElementById('switchButton');
-
 var chosenRoom;
 var currentBackground;
 
 socket.on("connect", () => {
-  console.log('Connected to socket')
+  console.log('Connected to socket!')
 });
 
 // handle the event sent with socket.send()
@@ -21,20 +17,19 @@ socket.on("message", data => {
 });
 
 // handle the event sent with socket.emit()
-socket.on("switchFromServer", (currentBackground) => {
-  console.log('Switch from Server')
+socket.on("switchFromServer", (currentBackground, clientPressed) => {
   if(currentBackground === "darkgray"){
     document.body.style.backgroundColor = "white";
-} else {
+    
+  } else {
     document.body.style.backgroundColor = "darkgray";
-}
+  }
+  console.log('Client who switched was: ' + clientPressed)
 });
 
 //Resets the background to white when a new user is connected
 socket.on("resetToWhite", () =>{
   document.body.style.backgroundColor = "white";
-
-  hideRoomValues()
   console.log('New User has connected, resetting to white')
 
 });
@@ -49,16 +44,16 @@ switchButton.addEventListener('click', () => {
 
 //Event listener on the button element: takes the room number and connects the client to proper socket room
 submitButton.addEventListener('click', () => { 
-  //Grabbing the room value
-  chosenRoom = document.getElementById('roomNum').value
-  console.log(chosenRoom)
+  //Grabbing the room value from input
+  chosenRoom = document.getElementById('roomNum').value;
   //Checks whether the input has any value:
   if (chosenRoom === ""){
     console.log('No Room to join');
-  }
+  } 
   else{
     //Sending room value to join that socket
     socket.emit('buttonSubmitted', chosenRoom);
+    hideRoomValues();
   }
 
 
@@ -66,7 +61,6 @@ submitButton.addEventListener('click', () => {
 
 //Hides the room submission values when client joins a room
 function hideRoomValues(){
-  console.log('Hiding the Room Values')
   document.getElementById("submitButton").style.display = "none";
   document.getElementById("roomLabel").style.display = "none"; 
   document.getElementById("roomNum").style.display = "none";
