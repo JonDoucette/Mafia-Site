@@ -44,7 +44,7 @@ io.on("connection", socket => {
     console.log(roomCount);
 
     map = io.sockets.adapter.rooms
-    console.log(map.get('1'))
+    console.log(map.get(data))
 
     //Get client ids from clients connected to Room 1 to array 
     //roles = [...map.get('1').values()]
@@ -57,7 +57,6 @@ io.on("connection", socket => {
     //console.log(roles[0])
     //socket.broadcast.to(roles[0]).emit('message', 'Message to you as a client')
     //console.log(io.sockets.sockets.get(clientId));
-    console.log()
 
     io.to(data).emit('resetToWhite');
     

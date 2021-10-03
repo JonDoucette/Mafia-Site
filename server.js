@@ -32,7 +32,8 @@ app.get('/', (req, res) => {
 
 });
 
-var roomCount = {}; 
+var roomLocation = {};
+
 io.on("connection", socket => {
   // either with send()
   socket.send("Howdy from the socket");
@@ -41,6 +42,7 @@ io.on("connection", socket => {
     console.log(`connect_error due to ${err.message}`);
   });
 
+  //Function to join the Submitted Room
   socket.on("buttonSubmitted", data => {
     console.log("Submit Button was pressed");
     socket.leave();
@@ -49,13 +51,12 @@ io.on("connection", socket => {
     console.log('Joining socket: ' + data);
     socket.join(data);
 
-    //Adds the running total number of users to the dictionary
-    if (isNaN(roomCount[data])) {roomCount[data]=0};
-    roomCount[data] = roomCount[data] + 1;
-    console.log(roomCount);
+    //Adds clientId to room location (which room they are connected in) dictionary
+    roomLocation[String(socket.id)] = data
+    console.log(roomLocation)
 
-    map = io.sockets.adapter.rooms
-    console.log(map.get('1'))
+    //map = io.sockets.adapter.rooms
+    //console.log(map.get(data))
 
     //Get client ids from clients connected to Room 1 to array 
     //roles = [...map.get('1').values()]
@@ -68,7 +69,7 @@ io.on("connection", socket => {
     //console.log(roles[0])
     //socket.broadcast.to(roles[0]).emit('message', 'Message to you as a client')
     //console.log(io.sockets.sockets.get(clientId));
-    console.log()
+
 
     io.to(data).emit('resetToWhite');
     
@@ -81,6 +82,24 @@ io.on("connection", socket => {
     
 
   });
+
+  socket.on('disconnect', function () {
+    //Removes the user from record of active connected rooms
+    delete roomLocation[socket.id]
+    console.log(roomLocation)
+    console.log(socket.id + 'has disconnected');
+
+    var countInRoom = 0
+    var activeRoom = '1'
+    //Count number in room (testing)
+    for (let room in roomLocation) {
+      if (roomLocation[room] === activeRoom){
+        countInRoom += 1
+      }
+      
+    }
+    console.log(countInRoom)
+  })
 
 
 
