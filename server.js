@@ -42,7 +42,7 @@ const io = require('socket.io')(server,{
     allowedHeaders: ['Access-Control-Allow-Private-Network: true', 'Access-Control-Allow-Origin: *'],
 
   },
-}),
+})
 
 var path = require('path');
 
