@@ -1,28 +1,30 @@
-//Server Setup
 const express = require('express');
 const app = express();
+var cors = require('cors')
+app.use(cors())
 
-//Allow for CORS to get in
-app.all('*', function(req, res, next) {
-  res.header('Access-Control-Allow-Origin', '*');
-  res.header('Access-Control-Allow-Methods', 'PUT, GET, POST, DELETE, OPTIONS');
-  res.header('Access-Control-Allow-Headers', 'Content-Type');
-  next();
-});
-
-const http = require('http');
-const server = http.createServer(app);
-var io = require('socket.io')(server);
-var path = require('path');
-
-//Send over the frontend information to the client side.
-var htmlPath = path.join(__dirname, 'frontend');
-app.use(express.static(htmlPath)) 
 
 app.get('/', (req, res) => {
   res.sendFile('/frontend/', {root: __dirname });
 
 });
+
+const http = require('http');
+const server = http.createServer(app);
+const io = require('socket.io')(server,{
+  cors: {
+    origin: "*",
+    methods: ["GET", "POST"],
+    allowedHeaders: ['Access-Control-Allow-Private-Network: true', 'Access-Control-Allow-Origin: *'],
+
+  },
+})
+
+var path = require('path');
+//Send over the frontend information to the client side.
+var htmlPath = path.join(__dirname, 'frontend');
+app.use(express.static(htmlPath)) 
+
 
 //Socket commands from client
 var roomLocation = {};
@@ -66,7 +68,7 @@ io.on("connection", socket => {
 
 
 server.listen(process.env.PORT || 3000, () => {
-  console.log('listening on *:3000');
+  console.log(`listening on *:${process.env.PORT || 3000}`);
 });
 
 /*
