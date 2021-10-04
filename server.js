@@ -1,7 +1,25 @@
 const express = require('express');
 const app = express();
+var cors = require('cors')
 
+const http = require('http');
+const server = http.createServer(app);
+var io = require('socket.io')(server);
 
+var path = require('path');
+
+app.use(cors())
+
+app.use(function(req, res, next) {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+  next();
+});
+
+app.get('/', (req, res) => {
+  res.sendFile('/frontend/', {root: __dirname });
+
+});
 //Allow for CORS to get in
 // app.all('*', function(req, res, next) {
 //   res.header('Access-Control-Allow-Origin', '*');
@@ -10,17 +28,9 @@ const app = express();
 //   next();
 // });
 
-app.use(function(req, res, next) {
-  res.header("Access-Control-Allow-Origin", "*");
-  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-  next();
-});
 
-const http = require('http');
-const server = http.createServer(app);
-var io = require('socket.io')(server);
 
-var path = require('path');
+
 
 
 //Send over the frontend information to the client side.
@@ -33,10 +43,7 @@ app.use(express.static(htmlPath))
 
 
 
-app.get('/', (req, res) => {
-  res.sendFile('/frontend/', {root: __dirname });
 
-});
 
 var roomCount = {}; 
 io.on("connection", socket => {
