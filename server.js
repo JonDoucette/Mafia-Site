@@ -1,6 +1,9 @@
 const express = require('express');
 const app = express();
 
+var cors = require('cors')
+app.use(cors())
+
 
 //Allow for CORS to get in
 app.all('*', function(req, res, next) {
@@ -89,6 +92,5 @@ io.on("connection", socket => {
 
 
 server.listen(process.env.PORT || 3000, () => {
-  console.log(process.env.PORT || 3000)
-  console.log('listening on *:3000');
+  console.log(`listening on *:${process.env.PORT || 3000}`);
 });
