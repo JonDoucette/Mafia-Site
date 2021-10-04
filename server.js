@@ -1,18 +1,24 @@
 const express = require('express');
 const app = express();
-var cors = require('cors')
-
-const http = require('http');
-const server = http.createServer(app);
-var io = require('socket.io')(server);
-
-var path = require('path');
+import cors from 'cors';
 
 app.use(cors())
 
-app.use(function(req, res, next) {
-  res.header("Access-Control-Allow-Origin", "*");
-  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+// app.use(function(req, res, next) {
+//   res.header("Access-Control-Allow-Origin", '*');
+//   res.header("Access-Control-Allow-Credentials", true);
+//   res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS');
+//   res.header("Access-Control-Allow-Headers", 'Origin,X-Requested-With,Content-Type,Accept,content-type,application/json');
+//   next();
+// });
+
+
+//Allow for CORS to get in
+app.all('*', function(req, res, next) {
+  res.header('Access-Control-Allow-Origin', '*');
+  res.header('Access-Control-Allow-Methods', 'PUT, GET, POST, DELETE, OPTIONS');
+  res.header('Access-Control-Allow-Headers', 'Content-Type');
+  res.header("Access-Control-Allow-Credentials", true);
   next();
 });
 
@@ -20,14 +26,12 @@ app.get('/', (req, res) => {
   res.sendFile('/frontend/', {root: __dirname });
 
 });
-//Allow for CORS to get in
-// app.all('*', function(req, res, next) {
-//   res.header('Access-Control-Allow-Origin', '*');
-//   res.header('Access-Control-Allow-Methods', 'PUT, GET, POST, DELETE, OPTIONS');
-//   res.header('Access-Control-Allow-Headers', 'Content-Type');
-//   next();
-// });
 
+const http = require('http');
+const server = http.createServer(app);
+var io = require('socket.io')(server);
+
+var path = require('path');
 
 
 
