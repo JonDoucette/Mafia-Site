@@ -22,7 +22,7 @@ var htmlPath = path.join(__dirname, 'frontend');
 app.use(express.static(htmlPath)) 
 
 
-app.use(cors())
+//app.use(cors())
 //app.options('*', cors())
 
 
@@ -89,5 +89,6 @@ io.on("connection", socket => {
 
 
 server.listen(process.env.PORT || 3000, () => {
+  console.log(process.env.PORT || 3000)
   console.log('listening on *:3000');
 });
