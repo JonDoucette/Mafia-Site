@@ -22,7 +22,7 @@ var htmlPath = path.join(__dirname, 'frontend');
 app.use(express.static(htmlPath)) 
 
 
-//app.use(cors())
+app.use(cors())
 //app.options('*', cors())
 
 
