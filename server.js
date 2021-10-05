@@ -54,6 +54,7 @@ io.on("connection", socket => {
   //Switches the background when the button is pressed
   socket.on("buttonPressed", (chosenRoom, currentBackground) =>  {
     io.to(chosenRoom).emit('switchFromServer', currentBackground, socket.id);
+    console.log(roomLocation)
   });
 
   //On disconnect, removes client from active rooms list
@@ -61,7 +62,13 @@ io.on("connection", socket => {
     //Removes the user from record of active connected rooms
     console.log(socket.id + ' has disconnected from socket: ' + roomLocation[socket.id]);
     delete roomLocation[socket.id]
+  })
 
+  socket.on('logoutRoom', data => {
+    console.log('Disconnecting user from the room ')
+    //Leaves the socket and removes from logging
+    socket.leave(roomLocation[socket.id])
+    delete roomLocation[socket.id]
   })
 
 });

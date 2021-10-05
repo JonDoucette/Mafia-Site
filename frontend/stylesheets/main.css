@@ -1,0 +1,65 @@
+@font-face {
+    font-family: AnotherDanger;
+    src: url('/frontend/fonts/AnotherDanger.otf');
+}
+
+* {
+    font-family: 'Roboto', sans-serif;
+    color: white;
+}
+
+.titleHeader{
+    font-family: AnotherDanger, sans-serif;
+    font-size: clamp(25px, 100%, 400px);
+    color: darkred;
+    text-shadow: 5px 5px 5px black;
+}
+
+
+button{
+    border-radius: 25px;
+    background-color:hsl(276, 13%, 51%);
+    justify-content: center;
+    border: 2px solid black;
+    height: 100px;
+    width: clamp(50px, 50%, 200px);
+    box-shadow: 0 5px  rgb(100, 100, 100);
+    /* font-size: clamp(4vw, 10vw, 50px); */
+    font-size: clamp(15px, 6vw, 50px)
+}
+button:hover{
+    background-color:hsl(276, 13%, 36%);
+}
+button:active {
+    background-color: hsl(276, 13%, 36%);
+    box-shadow: 0 1px #666;
+    transform: translateY(4px);
+}
+
+input{
+    margin-bottom: 2em; 
+    margin-top: 1em; 
+    padding: 0.25em; 
+    font-size: 1.5em;
+    width: 5em;
+    border-radius: 25px;
+    border: .1em solid black;
+    color:black;
+}
+
+
+.flex-container {
+    display: flex;
+    justify-content: center;
+}
+
+.flex-container > div {
+    display: inline-block;
+    margin: 100px;
+    padding: 20px;
+    border-color: black;
+    font-size: 100px;
+    background-size: 150px;
+    width: 110px;
+    height: 110px;
+}

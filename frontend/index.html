@@ -3,27 +3,32 @@
     <head>
         <meta charset="utf-8">
         <meta name = "viewport" content="width=device-width initial-scale=1.0"
-        <title> Jon's Testing Connection </title>
+        <title> </title>
 
+        <link rel="stylesheet" href="stylesheets/main.css">
+        
         <script defer src="https://cdn.socket.io/4.2.0/socket.io.min.js"></script>
         <script defer src="client.js"></script>
 
         
 
     </head>
-    <body>
-        <h1 id="title">Jon's Testing Connection</h1>
-        <p>Testing creation of websockets</p>
+    <div style="background-color: red;">
+        <button id="logoutButton" align="center" style="float:right;" hidden>Logout</button>
+    </div>
+    <body style="background-color: hsl(214.3,7.4%,18.6%)">
+        <center><h1 class= "titleHeader" id="title">M  A  F  I  A</h1></center>
         <div>
             <center>
-            <center><p id="activeRoom" style="display:none">Active Room</p></center>
+            <center><p id="activeRoom" hidden>Active Room</p></center>
                 <form> 
-                    <label for="roomSub" id="roomLabel">Room Number</label>
+                    <label class="roomNameLabel" for="roomSub" id="roomLabel">Room Number</label>
+                    <div></div>
                     <input type="text" id="roomNum" name="roomSub">
                </form>
             </center>
-            <center><button id ="submitButton">Submit</button></center>
-            <center><button id ="switchButton">Switch</button></center>
+            <center><button class="bouncy" id ="submitButton">Submit</button></center>
+            <center><button id ="switchButton" hidden >Switch</button></center>
         </div>
     
     </body>
