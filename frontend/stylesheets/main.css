@@ -9,12 +9,22 @@
 }
 
 .titleHeader{
+    display: flex;
+    justify-content: center;
     font-family: AnotherDanger, sans-serif;
-    font-size: clamp(25px, 100%, 400px);
+    font-size: min(4em, 18vw);
     color: darkred;
     text-shadow: 5px 5px 5px black;
 }
 
+.roomNameLabel {
+    font-size: min(2em, 12vw);
+}
+
+header{
+    display: flex;
+    justify-content: center;
+}
 
 button{
     border-radius: 25px;
@@ -22,10 +32,9 @@ button{
     justify-content: center;
     border: 2px solid black;
     height: 100px;
-    width: clamp(50px, 50%, 200px);
+    width: clamp(3.75em, 50%, 200px);
     box-shadow: 0 5px  rgb(100, 100, 100);
-    /* font-size: clamp(4vw, 10vw, 50px); */
-    font-size: clamp(15px, 6vw, 50px)
+    font-size: clamp(15px, 10vw, 50px)
 }
 button:hover{
     background-color:hsl(276, 13%, 36%);
@@ -41,12 +50,28 @@ input{
     margin-top: 1em; 
     padding: 0.25em; 
     font-size: 1.5em;
-    width: 5em;
+    width: clamp(3.75em, 45%, 12em);
     border-radius: 25px;
     border: .1em solid black;
     color:black;
 }
 
+/* .loginDiv{
+    display: flex;
+    position: absolute;
+}
+
+.roomSubmission{
+    position: relative;
+    justify-content: center;
+    flex-basis: 100%;
+}
+.roleCard{
+    visibility: hidden;
+    justify-content: center;
+    position: relative;
+    flex-basis: 100%;
+} */
 
 .flex-container {
     display: flex;

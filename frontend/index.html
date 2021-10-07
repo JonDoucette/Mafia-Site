@@ -13,12 +13,18 @@
         
 
     </head>
+    <header>
+        <div>Testing Header Div</div>
+    </header>
+    
     <div style="background-color: red;">
         <button id="logoutButton" align="center" style="float:right;" hidden>Logout</button>
     </div>
+
     <body style="background-color: hsl(214.3,7.4%,18.6%)">
-        <center><h1 class= "titleHeader" id="title">M  A  F  I  A</h1></center>
-        <div>
+        <h1 class= "titleHeader">M  A  F  I  A</h1>
+        <div class="loginDiv" style="background-color: red;">
+            <div class="roomSubmission">
             <center>
             <center><p id="activeRoom" hidden>Active Room</p></center>
                 <form> 
@@ -27,9 +33,13 @@
                     <input type="text" id="roomNum" name="roomSub">
                </form>
             </center>
-            <center><button class="bouncy" id ="submitButton">Submit</button></center>
+            <center><div><button class="bouncy" id ="submitButton">Submit</button></div></center>
+
             <center><button id ="switchButton" hidden >Switch</button></center>
+            </div>
+            <div class="roleCard"style="background-color: green;">card</div>
         </div>
+        
     
     </body>
 
