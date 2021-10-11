@@ -15,6 +15,14 @@
     </head>
     <header>
         <div>Testing Header Div</div>
+        <nav>
+            <div>
+                Mafia
+            </div>
+        </nav>
+        <div style="visibility: hidden;">
+            Second Item
+        </div>
     </header>
     
     <div style="background-color: red;">
@@ -37,9 +45,21 @@
 
             <center><button id ="switchButton" hidden >Switch</button></center>
             </div>
-            <div class="roleCard"style="background-color: green;">card</div>
         </div>
-        
+
+        <div class="flip-card-container">
+        <div class="flip-card" id='roleCard' >
+            <div class="flip-card-inner" id='roleCardInner' onclick=''>
+              <div class="flip-card-front">
+                <img src="img_avatar.png" alt="Avatar" style="width:300px;height:300px;">
+              </div>
+              <div class="flip-card-back">
+                <h1>Your Role: Mafia</h1>
+                <p>Kill at night</p>
+              </div>
+            </div>
+          </div> 
+        </div>
     
     </body>
 

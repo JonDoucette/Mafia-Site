@@ -64,6 +64,27 @@ logoutButton.addEventListener('click', () => {
   backToMainScreen();
 })
 
+//
+document.getElementById("roleCard").addEventListener("click", rotateRoleCard);
+
+function rotateRoleCard()
+{
+  const element = document.getElementById("roleCardInner")
+  
+  if (element.classList.contains('cardRotation'))
+  {
+    element.classList.remove('cardRotation')
+    element.classList.add('resetCardRotation')
+  }
+  else{
+    element.classList.remove('resetCardRotation')
+    element.classList.add('cardRotation')
+  }
+ 
+  
+  
+}
+
 //Hides the room submission values when client joins a room
 function hideRoomValues(){
   document.getElementById("submitButton").hidden = true;
