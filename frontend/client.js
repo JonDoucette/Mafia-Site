@@ -19,7 +19,7 @@ socket.on("message", data => {
 // handle the event sent with socket.emit()
 socket.on("switchFromServer", (currentBackground, clientPressed) => {
   if(currentBackground === "darkgray"){
-    document.body.style.backgroundColor = "hsl(203.6,15.9%,65.5%)";
+    document.body.style.backgroundColor = "hsl(214.3,7.4%,18.6%)";
     
   } else {
     document.body.style.backgroundColor = "darkgray";
@@ -28,10 +28,11 @@ socket.on("switchFromServer", (currentBackground, clientPressed) => {
 });
 
 //Resets the background to white when a new user is connected
-socket.on("resetToWhite", () =>{
-  document.body.style.backgroundColor = "hsl(203.6,15.9%,65.5%)";
-  console.log('New User has connected, resetting to white')
+socket.on("resetToWhite", data =>{
+  document.body.style.backgroundColor = "hsl(214.3,7.4%,18.6%)";
 
+  console.log('New User has connected, resetting to white')
+  document.getElementById("countOfUsers").innerHTML= `Count of Users in Room: ${data}`
 });
 
 //Event listener on the button element: sends command to server to switch background when clicked
@@ -47,9 +48,7 @@ submitButton.addEventListener('click', () => {
   //Grabbing the room value from input
   chosenRoom = document.getElementById('roomNum').value;
   //Checks whether the input has any value:
-  if (chosenRoom === ""){
-    console.log('No Room to join');
-  } 
+  if (chosenRoom === ""){console.log('No Room to join');} 
   else{
     //Sending room value to join that socket
     socket.emit('buttonSubmitted', chosenRoom);
@@ -64,9 +63,9 @@ logoutButton.addEventListener('click', () => {
   backToMainScreen();
 })
 
-//
+// Rotates the card if the user clicks on the card (made for Mobile use)
+//Remove if you want it to only flip when the card is actively being touched 
 document.getElementById("roleCard").addEventListener("click", rotateRoleCard);
-
 function rotateRoleCard()
 {
   const element = document.getElementById("roleCardInner")
@@ -80,9 +79,6 @@ function rotateRoleCard()
     element.classList.remove('resetCardRotation')
     element.classList.add('cardRotation')
   }
- 
-  
-  
 }
 
 //Hides the room submission values when client joins a room
@@ -98,6 +94,8 @@ function hideRoomValues(){
   //Reveals the switch button and the logout button
   document.getElementById("switchButton").hidden = false;
   document.getElementById("logoutButton").hidden = false;
+  document.getElementById("countOfUsers").hidden = false;
+  document.getElementById("roleCardContainer").style.display = "flex";
 }
 
 function backToMainScreen(){
@@ -113,6 +111,8 @@ function backToMainScreen(){
   //Reveals the switch button and the logout button
   document.getElementById("switchButton").hidden = true;
   document.getElementById("logoutButton").hidden = true;
+  document.getElementById("countOfUsers").hidden = true;
+  document.getElementById("roleCardContainer").style.display = "none";
 
   document.body.style.backgroundColor = "hsl(203.6,15.9%,65.5%)";
 }

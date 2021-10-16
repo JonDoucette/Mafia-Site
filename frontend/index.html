@@ -14,15 +14,16 @@
 
     </head>
     <header>
-        <div>Testing Header Div</div>
+        <div style="text-align: left;">1</div>
         <nav>
-            <div>
-                Mafia
+            <div class="titleHeader">
+                M A F I A
             </div>
         </nav>
-        <div style="visibility: hidden;">
-            Second Item
+        <div style="text-align: right;">
+            Logout
         </div>
+
     </header>
     
     <div style="background-color: red;">
@@ -30,37 +31,41 @@
     </div>
 
     <body style="background-color: hsl(214.3,7.4%,18.6%)">
-        <h1 class= "titleHeader">M  A  F  I  A</h1>
-        <div class="loginDiv" style="background-color: red;">
-            <div class="roomSubmission">
+        <div class="loginDiv">
+            <!-- <div class="roomSubmission"> -->
             <center>
             <center><p id="activeRoom" hidden>Active Room</p></center>
                 <form> 
                     <label class="roomNameLabel" for="roomSub" id="roomLabel">Room Number</label>
-                    <div></div>
+                    <p id="countOfUsers" hidden></p>
+                    <br>
                     <input type="text" id="roomNum" name="roomSub">
                </form>
             </center>
             <center><div><button class="bouncy" id ="submitButton">Submit</button></div></center>
-
-            <center><button id ="switchButton" hidden >Switch</button></center>
-            </div>
+            <!-- </div> -->
         </div>
 
-        <div class="flip-card-container">
-        <div class="flip-card" id='roleCard' >
-            <div class="flip-card-inner" id='roleCardInner' onclick=''>
-              <div class="flip-card-front">
-                <img src="img_avatar.png" alt="Avatar" style="width:300px;height:300px;">
-              </div>
-              <div class="flip-card-back">
-                <h1>Your Role: Mafia</h1>
-                <p>Kill at night</p>
-              </div>
-            </div>
-          </div> 
+
+
+        <div class="flip-card-container" id='roleCardContainer' style="display: none">
+            <div class="flip-card" id='roleCard'>
+                <div class="flip-card-inner" id='roleCardInner' onclick=''>
+                    <div class="flip-card-front">
+                        <img src="img_avatar.png" alt="Avatar" style="width:300px;height:300px;">
+                    </div>
+                    <div class="flip-card-back">
+                        <h1>Your Role: Mafia</h1>
+                        <p>Kill at night</p>
+                    </div>
+                </div>
+            </div> 
         </div>
     
+        <center>
+        <button id ="switchButton" hidden >Start Game</button>
+        </center>
+
     </body>
 
 </html>

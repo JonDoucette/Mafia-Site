@@ -21,6 +21,7 @@ const io = require('socket.io')(server,{
 })
 
 var path = require('path');
+const { count } = require('console');
 //Send over the frontend information to the client side.
 var htmlPath = path.join(__dirname, 'frontend');
 app.use(express.static(htmlPath)) 
@@ -47,12 +48,26 @@ io.on("connection", socket => {
     //socket.broadcast.to(roles[0]).emit('message', 'Message to you as a client')
     //console.log(io.sockets.sockets.get(clientId));
 
-    io.to(data).emit('resetToWhite');
+    var countInRoom = 0
+    var activeRoom = data
+    //Count number in room (testing)
+    for (let room in roomLocation) {
+      if (roomLocation[room] === activeRoom){
+        countInRoom += 1
+      } 
+    }
+
+    io.to(data).emit('resetToWhite', countInRoom);
     
   });
 
   //Switches the background when the button is pressed
   socket.on("buttonPressed", (chosenRoom, currentBackground) =>  {
+
+    countInRoom = getRoomCount(chosenRoom)
+
+    if (countInRoom < 3) {console.log('Nope')}
+    console.log(countInRoom)
     io.to(chosenRoom).emit('switchFromServer', currentBackground, socket.id);
     console.log(roomLocation)
   });
@@ -77,6 +92,20 @@ io.on("connection", socket => {
 server.listen(process.env.PORT || 3000, () => {
   console.log(`listening on *:${process.env.PORT || 3000}`);
 });
+
+function getRoomCount(roomId){
+      //Room Counter
+      var countInRoom = 0
+      var activeRoom = roomId
+      //Count number in room (testing)
+      for (let room in roomLocation) {
+        if (roomLocation[room] === activeRoom){
+          countInRoom += 1
+        }
+        
+      }
+      return(countInRoom)
+}
 
 /*
   Count the number of users in a specific room
