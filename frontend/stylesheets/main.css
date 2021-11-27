@@ -114,8 +114,8 @@ justify-items: center;
 position: relative;
 flex-basis: 50%;
 background-color: transparent;
-width: 300px;
-height: clamp(100px, 40vh, 350px);
+width: 426px;
+height: 600px;
 padding-bottom: 10px;
 /* border: 1px solid #f1f1f1; */
 perspective: 1000px;
@@ -166,13 +166,11 @@ backface-visibility: hidden;
 
 /* Style the front side (fallback if image is missing) */
 .flip-card-front {
-background-color: #bbb;
 color: black;
 }
 
 /* Style the back side */
 .flip-card-back {
-background-color: dodgerblue;
 color: white;
 transform: rotateY(180deg);
 } 

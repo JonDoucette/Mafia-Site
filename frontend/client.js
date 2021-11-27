@@ -30,9 +30,18 @@ socket.on("switchFromServer", (currentBackground, clientPressed) => {
 //Resets the background to white when a new user is connected
 socket.on("resetToWhite", data =>{
   document.body.style.backgroundColor = "hsl(214.3,7.4%,18.6%)";
-
   console.log('New User has connected, resetting to white')
-  document.getElementById("countOfUsers").innerHTML= `Count of Users in Room: ${data}`
+});
+
+//Sets the card image to specified role
+socket.on("receiveRole", role => {
+  document.getElementById("roleCardContainer").style.display = "flex";
+  console.log(`Received the role of: ${role}`);
+  document.getElementById("roleImage").src = `assets/${role}.png`;
+});
+
+socket.on("updateUserCount", newUserCount => {
+  document.getElementById("countOfUsers").innerHTML= `Count of Users in Room: ${newUserCount}`;
 });
 
 //Event listener on the button element: sends command to server to switch background when clicked
@@ -41,8 +50,11 @@ switchButton.addEventListener('click', () => {
       currentBackground = document.body.style.backgroundColor
       //Tells the server to switch the background and sends which background to be 
       socket.emit('buttonPressed', chosenRoom, currentBackground);
+      socket.emit('gameStarted', chosenRoom)
 })
 
+
+//SUBMIT BUTTON
 //Event listener on the button element: takes the room number and connects the client to proper socket room
 submitButton.addEventListener('click', () => { 
   //Grabbing the room value from input
@@ -95,7 +107,9 @@ function hideRoomValues(){
   document.getElementById("switchButton").hidden = false;
   document.getElementById("logoutButton").hidden = false;
   document.getElementById("countOfUsers").hidden = false;
-  document.getElementById("roleCardContainer").style.display = "flex";
+
+  //Reveals the role card container
+  // document.getElementById("roleCardContainer").style.display = "flex";
 }
 
 function backToMainScreen(){

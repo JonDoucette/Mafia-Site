@@ -57,8 +57,8 @@ io.on("connection", socket => {
       } 
     }
 
-    io.to(data).emit('resetToWhite', countInRoom);
-    
+    io.to(data).emit('resetToWhite');
+    io.to(data).emit('updateUserCount', countInRoom)
   });
 
   //Switches the background when the button is pressed
@@ -84,7 +84,50 @@ io.on("connection", socket => {
     //Leaves the socket and removes from logging
     socket.leave(roomLocation[socket.id])
     delete roomLocation[socket.id]
+
+    var newUserCount = getRoomCount(data)
+    //Update count of users in room
+    io.to(data).emit('updateUserCount', newUserCount)
   })
+
+  socket.on('gameStarted', (chosenRoom) => {
+    console.log('Game has been started')
+    countInRoom = getRoomCount(chosenRoom)
+    if (countInRoom < 4) {console.log('Not enough players to start')}
+    else{
+
+    var roleList = getMafiaRoles(countInRoom)
+    console.log('role List: ')
+    console.log(roleList)
+
+    //Loops through each user in the room and sends Role
+    var userList = getKeyByValue(roomLocation, chosenRoom)
+    userList.forEach(function (user, index){
+          
+      console.log(user)
+      var item = roleList[Math.floor(Math.random()*roleList.length)]
+      var index = roleList.indexOf(item)
+      roleList.splice(index, 1)
+      console.log(item)
+
+      //Send result to specific user (by socket id) via "receiveRole"
+      io.to(String(user)).emit('receiveRole', item)
+        
+    })
+  }
+    console.log(roomLocation)
+
+
+
+    // {
+    //   JLsMLxzXnLqxOMgjAAAL: '14',
+    //   Pz3YHRvWbvc1RWpzAAAP: '14',
+    //   _EPtt3XzvBbspn19AAAR: '15'
+    // }
+
+
+  })
+
 
 });
 
@@ -107,19 +150,34 @@ function getRoomCount(roomId){
       return(countInRoom)
 }
 
-/*
-  Count the number of users in a specific room
+function getMafiaRoles(countOfUsers){
 
-    //Room Counter
-    var countInRoom = 0
-    var activeRoom = '1'
-    //Count number in room (testing)
-    for (let room in roomLocation) {
-      if (roomLocation[room] === activeRoom){
-        countInRoom += 1
-      }
-      
+  //Bomber checkbox
+
+  console.log('Getting Mafia Roles')
+  switch(countOfUsers){
+    case 4:
+      return ['mafia', 'town', 'town', 'town']
+    case 5:
+      return ['mafia', 'investigator', 'medic', 'town', 'town']
+    case 6:
+      return ['mafia', 'investigator', 'medic', 'town', 'town', 'town']
+    case 7:
+      return ['mafia', 'mafia', 'investigator', 'medic', 'town', 'town', 'town']
+    case 8:
+      return ['mafia', 'mafia', 'mafia', 'investigator', 'medic', 'bomber', 'town', 'town']
+    case 9:
+      return ['mafia', 'mafia', 'mafia', 'investigator', 'medic', 'bomber', 'town', 'town', 'town']
+    case 10:
+      return ['mafia', 'mafia', 'mafia', 'investigator', 'medic', 'bomber', 'town', 'town', 'town', 'town']
+    case 11:
+      return ['mafia', 'mafia', 'mafia', 'mafia', 'investigator', 'medic', 'bomber', 'town', 'town', 'town', 'town']
+    case 12:
+      return ['mafia', 'mafia', 'mafia', 'mafia', 'investigator', 'medic', 'bomber', 'town', 'town', 'town', 'town', 'town']
     }
-    console.log(countInRoom)
+}
+  
+function getKeyByValue(object, value) {
+  return Object.keys(object).filter(key => object[key] === value);
+}
 
-*/
