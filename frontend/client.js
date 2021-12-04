@@ -6,6 +6,8 @@ const socket = io('http://localhost:3000');
 
 var chosenRoom;
 var currentBackground;
+var isHost = false;
+var currentRole = false;
 
 socket.on("connect", () => {
   console.log('Connected to socket!')
@@ -22,14 +24,15 @@ socket.on("switchFromServer", (currentBackground, clientPressed) => {
     document.body.style.backgroundColor = "hsl(214.3,7.4%,18.6%)";
     
   } else {
-    document.body.style.backgroundColor = "darkgray";
+    document.body.style.backgroundColor = "black"; 
+    // darkgrey
   }
   console.log('Client who switched was: ' + clientPressed)
 });
 
 //Resets the background to white when a new user is connected
 socket.on("resetToWhite", data =>{
-  document.body.style.backgroundColor = "hsl(214.3,7.4%,18.6%)";
+  document.body.style.backgroundColor = "black";
   console.log('New User has connected, resetting to white')
 });
 
@@ -37,11 +40,17 @@ socket.on("resetToWhite", data =>{
 socket.on("receiveRole", role => {
   document.getElementById("roleCardContainer").style.display = "flex";
   console.log(`Received the role of: ${role}`);
+  currentRole = role;
   document.getElementById("roleImage").src = `assets/${role}.png`;
 });
 
 socket.on("updateUserCount", newUserCount => {
   document.getElementById("countOfUsers").innerHTML= `Count of Users in Room: ${newUserCount}`;
+});
+
+socket.on("makeHost", () => {
+  document.getElementById("switchButton").hidden = false;
+  isHost = true;
 });
 
 //Event listener on the button element: sends command to server to switch background when clicked
@@ -65,6 +74,10 @@ submitButton.addEventListener('click', () => {
     //Sending room value to join that socket
     socket.emit('buttonSubmitted', chosenRoom);
     hideRoomValues();
+    if (!currentRole){
+      document.getElementById("roleCardContainer").style.display = "flex";
+    }
+
   }
 })
 
@@ -72,6 +85,12 @@ submitButton.addEventListener('click', () => {
 logoutButton.addEventListener('click', () => { 
   console.log('Logging out of the room')
   socket.emit('logoutRoom', chosenRoom);
+  console.log(isHost)
+  if (isHost){
+    console.log('sending get new host')
+    socket.emit('getNewHost', chosenRoom);
+    isHost = false
+  }
   backToMainScreen();
 })
 
@@ -103,8 +122,7 @@ function hideRoomValues(){
   document.getElementById("activeRoom").hidden = false;
   document.getElementById("activeRoom").innerHTML = "Room Name: " + String(chosenRoom);
 
-  //Reveals the switch button and the logout button
-  document.getElementById("switchButton").hidden = false;
+  //Reveals the logoutButton button and the logout button
   document.getElementById("logoutButton").hidden = false;
   document.getElementById("countOfUsers").hidden = false;
 
@@ -128,5 +146,5 @@ function backToMainScreen(){
   document.getElementById("countOfUsers").hidden = true;
   document.getElementById("roleCardContainer").style.display = "none";
 
-  document.body.style.backgroundColor = "hsl(203.6,15.9%,65.5%)";
+  document.body.style.backgroundColor = "black";
 }

@@ -29,6 +29,7 @@ app.use(express.static(htmlPath))
 
 //Socket commands from client
 var roomLocation = {};
+var currentGameRoles = {};
 io.on("connection", socket => {
 
   //If error connecting to client, reports error to Server
@@ -58,7 +59,17 @@ io.on("connection", socket => {
     }
 
     io.to(data).emit('resetToWhite');
-    io.to(data).emit('updateUserCount', countInRoom)
+    io.to(data).emit('updateUserCount', countInRoom);
+    if (countInRoom === 1){
+      io.to(data).emit('makeHost');
+    }
+    //If the user is already a part of the running game, give role
+    if (activeRoom in currentGameRoles){
+      if (Object.keys(currentGameRoles[activeRoom]).includes(socket.id)){
+        var existingRole = currentGameRoles[activeRoom][socket.id]
+        io.to(String(socket.id)).emit('receiveRole', existingRole)
+      }
+    }
   });
 
   //Switches the background when the button is pressed
@@ -100,6 +111,8 @@ io.on("connection", socket => {
     console.log('role List: ')
     console.log(roleList)
 
+    var runningGameRoles = {}
+
     //Loops through each user in the room and sends Role
     var userList = getKeyByValue(roomLocation, chosenRoom)
     userList.forEach(function (user, index){
@@ -109,11 +122,15 @@ io.on("connection", socket => {
       var index = roleList.indexOf(item)
       roleList.splice(index, 1)
       console.log(item)
+      runningGameRoles[user] = item;
 
       //Send result to specific user (by socket id) via "receiveRole"
       io.to(String(user)).emit('receiveRole', item)
         
     })
+
+    currentGameRoles[chosenRoom] = runningGameRoles;
+    console.log(currentGameRoles)
   }
     console.log(roomLocation)
 
@@ -128,6 +145,11 @@ io.on("connection", socket => {
 
   })
 
+  socket.on('getNewHost', (chosenRoom) => {
+    console.log(`Making new host in room: ${chosenRoom}`)
+    newHost = Object.keys(roomLocation)[0]
+    io.to(String(newHost)).emit('makeHost')
+  })
 
 });
 

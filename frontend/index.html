@@ -11,9 +11,17 @@
         <script defer src="client.js"></script>
 
         
-
     </head>
-    <header>
+    <nav class="navi">
+        <ul class= "navi-list">
+            <li class="titleHeader centered-logo">M A F I A</li>   
+        </ul>
+    </nav> 
+
+
+
+
+    <!-- <header>
         <div style="text-align: left;">1</div>
         <nav>
             <div class="titleHeader">
@@ -24,17 +32,16 @@
             Logout
         </div>
 
-    </header>
+    </header> -->
     
-    <div style="background-color: red;">
-        <button id="logoutButton" align="center" style="float:right;" hidden>Logout</button>
-    </div>
 
-    <body style="background-color: hsl(214.3,7.4%,18.6%)">
+
+    <!-- <body style="background-color: hsl(214.3,7.4%,18.6%)"> -->
+        <body style="background-color: black"></body>
         <div class="loginDiv">
             <!-- <div class="roomSubmission"> -->
             <center>
-            <center><p id="activeRoom" hidden>Active Room</p></center>
+            <center><p id="activeRoom" class="activeRoom" hidden>Active Room</p></center>
                 <form> 
                     <label class="roomNameLabel" for="roomSub" id="roomLabel">Room Number</label>
                     <p id="countOfUsers" hidden></p>
@@ -51,18 +58,20 @@
             <div class="flip-card" id='roleCard'>
                 <div class="flip-card-inner" id='roleCardInner' onclick=''>
                     <div class="flip-card-front">
-                        <img src="assets/background.png" alt="Avatar" style="width:426px;height:600px;">
+                        <img src="assets/background.png" alt="Avatar">
                     </div>
                     <div class="flip-card-back">
-                        <img src="assets/background.png" id= "roleImage" alt="Avatar" style="width:426px;height:600px;">
+                        <img src="assets/background.png" id= "roleImage" alt="Avatar">
                     </div>
                 </div>
             </div> 
         </div>
-    
-        <center>
-        <button id ="switchButton" hidden>Start Game</button>
-        </center>
+        
+        <div></div>
+        <div class="button-container">
+            <button id ="switchButton" hidden>Start Game</button>
+            <button id="logoutButton" hidden>Logout</button>
+        </div>
 
     </body>
 
