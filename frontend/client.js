@@ -7,7 +7,6 @@ const socket = io('http://localhost:3000');
 var chosenRoom;
 var currentBackground;
 var isHost = false;
-var currentRole = false;
 
 socket.on("connect", () => {
   console.log('Connected to socket!')
@@ -74,10 +73,6 @@ submitButton.addEventListener('click', () => {
     //Sending room value to join that socket
     socket.emit('buttonSubmitted', chosenRoom);
     hideRoomValues();
-    if (!currentRole){
-      document.getElementById("roleCardContainer").style.display = "flex";
-    }
-
   }
 })
 

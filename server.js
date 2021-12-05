@@ -87,7 +87,16 @@ io.on("connection", socket => {
   socket.on('disconnect', function () {
     //Removes the user from record of active connected rooms
     console.log(socket.id + ' has disconnected from socket: ' + roomLocation[socket.id]);
+    var room = roomLocation[socket.id]
     delete roomLocation[socket.id]
+    
+    var newUserCount = getRoomCount(room)
+    //Update count of users in room
+    io.to(room).emit('updateUserCount', newUserCount)
+    
+
+    console.log('Updating the host')
+    getNewHostOnDisconnect(socket.id,room);
   })
 
   socket.on('logoutRoom', data => {
@@ -99,6 +108,7 @@ io.on("connection", socket => {
     var newUserCount = getRoomCount(data)
     //Update count of users in room
     io.to(data).emit('updateUserCount', newUserCount)
+    
   })
 
   socket.on('gameStarted', (chosenRoom) => {
@@ -203,3 +213,16 @@ function getKeyByValue(object, value) {
   return Object.keys(object).filter(key => object[key] === value);
 }
 
+function getNewHostOnDisconnect(user, chosenRoom) {
+    console.log(`Making new host in room: ${chosenRoom}`)
+    var dictionaryLength = Object.keys(roomLocation).length
+    for (let i = 0; i < dictionaryLength; i++) {
+      newHost = Object.keys(roomLocation)[i]
+      if (String(newHost) == String(user)) {continue}
+      else{
+        console.log('Making new host')
+        io.to(String(newHost)).emit('makeHost');
+        break;
+      }
+    }
+}
