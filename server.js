@@ -1,9 +1,32 @@
 const express = require('express');
 const app = express();
 var cors = require('cors')
+
 app.use(cors())
 
+// app.use(function(req, res, next) {
+//   res.header("Access-Control-Allow-Origin", '*');
+//   res.header("Access-Control-Allow-Credentials", true);
+//   res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS');
+//   res.header("Access-Control-Allow-Headers", 'Origin,X-Requested-With,Content-Type,Accept,content-type,application/json');
+//   if (req.method === 'OPTIONS') {
 
+//     res.header('Access-Control-Allow-Methods', 'PUT, POST, PATCH, DELETE, OPTIONS');
+//     res.header('Access-Control-Max-Age', 120);
+//     return res.status(200).json({});
+// }
+//   next();
+// });
+
+
+//Allow for CORS to get in
+// app.all('*', function(req, res, next) {
+//   res.header('Access-Control-Allow-Origin', '*');
+//   res.header('Access-Control-Allow-Methods', 'PUT, GET, POST, DELETE, OPTIONS');
+//   res.header('Access-Control-Allow-Headers', 'Content-Type');
+//   res.header("Access-Control-Allow-Credentials", true);
+//   next();
+// });
 app.get('/', (req, res) => {
   res.sendFile('/frontend/', {root: __dirname });
 
@@ -21,7 +44,10 @@ const io = require('socket.io')(server,{
 })
 
 var path = require('path');
+
 const { count } = require('console');
+
+
 //Send over the frontend information to the client side.
 var htmlPath = path.join(__dirname, 'frontend');
 app.use(express.static(htmlPath)) 
@@ -30,6 +56,16 @@ app.use(express.static(htmlPath))
 //Socket commands from client
 var roomLocation = {};
 var currentGameRoles = {};
+
+
+//app.use(cors())
+//app.options('*', cors())
+
+
+
+
+
+var roomCount = {}; 
 io.on("connection", socket => {
 
   //If error connecting to client, reports error to Server
@@ -218,3 +254,4 @@ function getNewHostOnDisconnect(user, chosenRoom) {
       }
     }
 }
+});
