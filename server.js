@@ -125,34 +125,26 @@ io.on("connection", socket => {
 
     //Loops through each user in the room and sends Role
     var userList = getKeyByValue(roomLocation, chosenRoom)
-    userList.forEach(function (user, index){
-          
-      console.log(user)
+
+    for (let i = 0; i = userList.length; i++){
       var item = roleList[Math.floor(Math.random()*roleList.length)]
       var index = roleList.indexOf(item)
-      roleList.splice(index, 1)
-      console.log(item)
+      var user = userList[Math.floor(Math.random()*userList.length)]
+      var userIndex = userList.indexOf(user)
+
       runningGameRoles[user] = item;
 
-      //Send result to specific user (by socket id) via "receiveRole"
+      roleList.splice(index, 1)
+      userList.splice(userIndex, 1)
+
       io.to(String(user)).emit('receiveRole', item)
-        
-    })
+    }
 
     currentGameRoles[chosenRoom] = runningGameRoles;
+    console.log('Current Game Roles:')
     console.log(currentGameRoles)
   }
     console.log(roomLocation)
-
-
-
-    // {
-    //   JLsMLxzXnLqxOMgjAAAL: '14',
-    //   Pz3YHRvWbvc1RWpzAAAP: '14',
-    //   _EPtt3XzvBbspn19AAAR: '15'
-    // }
-
-
   })
 
   socket.on('getNewHost', (chosenRoom) => {
