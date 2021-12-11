@@ -29,7 +29,6 @@ app.use(cors())
 // });
 app.get('/', (req, res) => {
   res.sendFile('/frontend/', {root: __dirname });
-  res.sendFile('/frontend/fonts', {root: __dirname });
 
 });
 
