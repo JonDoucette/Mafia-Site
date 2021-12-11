@@ -234,6 +234,14 @@ function getMafiaRoles(countOfUsers){
       return ['mafia', 'mafia', 'mafia', 'mafia', 'investigator', 'medic', 'bomber', 'town', 'town', 'town', 'town']
     case 12:
       return ['mafia', 'mafia', 'mafia', 'mafia', 'investigator', 'medic', 'bomber', 'town', 'town', 'town', 'town', 'town']
+    case 13:
+      return ['mafia', 'mafia', 'mafia', 'mafia', 'investigator', 'investigator', 'medic', 'medic', 'bomber', 'town', 'town', 'town', 'town']
+    case 14:
+      return ['mafia', 'mafia', 'mafia', 'mafia', 'investigator', 'investigator', 'medic', 'medic', 'bomber', 'bomber', 'town', 'town', 'town', 'town']
+    case 15:
+      return ['mafia', 'mafia', 'mafia', 'mafia', 'mafia', 'investigator', 'investigator', 'medic', 'medic', 'bomber', 'bomber', 'town', 'town', 'town', 'town']
+    case 16:
+      return ['mafia', 'mafia', 'mafia', 'mafia', 'mafia', 'investigator', 'investigator', 'medic', 'medic', 'bomber', 'bomber', 'town', 'town', 'town', 'town', 'town']
     }
 }
   
