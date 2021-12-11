@@ -1,0 +1,220 @@
+@font-face {
+    font-family: AnotherDanger;
+    src: url('/frontend/fonts/AnotherDanger.otf');
+}
+
+@media only screen and (min-width: 600px) {
+
+  }
+
+* {
+    font-family: 'Roboto', sans-serif;
+    color: white;
+
+}
+
+header{
+    display: flex;
+    align-items: center;
+    /* justify-content: center; */
+    /* justify-content: center; */
+    justify-content: space-between;
+    text-align: center;
+}
+
+ul, li {
+    list-style-type: none;
+}
+  
+.navi-list {
+    display: flex;
+    position: relative;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    padding-left: 0px;
+    width: 100%;
+}
+  
+
+.logout {
+    flex: 1 0 auto;
+    margin-right: calc(0.5*(clamp(3.75em, 50%, 200px)));
+}
+
+
+button{
+    border-radius: 25px;
+    /* background-color:hsl(276, 13%, 51%); */
+    background-color: black;
+    color: darkred;
+    justify-content: center;
+    border: 2px solid white;
+    height: 100px;
+    /* width: clamp(3.75em, 50%, 200px);*/
+    width: clamp(4rem, 10vw, 200px);
+    height: clamp(0.25rem, 10vh, 4rem);
+    box-shadow: 0 3px  rgb(100, 100, 100);
+    font-size: clamp(.75rem, 2vw, 2rem)
+}
+
+button:hover{
+    /* background-color:hsl(276, 13%, 36%); */
+    background-color: grey;
+}
+
+button:active {
+    background-color: lightslategray;
+    box-shadow: 0 1px lightslategray;
+    transform: translateY(4px);
+}
+
+input{
+    margin-bottom: 2em; 
+    margin-top: 1em; 
+    padding: 0.25em; 
+    font-size: 1.5em;
+    width: clamp(3.75em, 45%, 12em);
+    border-radius: 25px;
+    border: .1em solid black;
+    color:black;
+}
+
+.titleHeader{
+    font-family: AnotherDanger, sans-serif;
+    font-size: clamp(2rem, 12vw, 8rem);
+    color: darkred;
+    text-shadow: 5px 5px 5px gray;
+}
+
+.roomNameLabel, .activeRoom {
+    font-size: min(2em, 12vw);
+    font-size: clamp(0.25rem, 4vw, 2rem)
+}
+
+.button-container {
+    display: flex;
+    justify-content: center;
+    gap: 5%;
+}
+
+/* .loginDiv{
+    display: flex;
+    // display: none; 
+    position: relative;
+} */
+
+/* .roomSubmission{
+    position: relative;
+    justify-content: center;
+    flex-basis: 100%;
+} */
+
+/* .roleCard{
+    display: flex;
+    justify-content: center;
+
+} */
+
+/* .flex-container {
+    display: flex;
+    justify-content: center;
+    position: relative;
+    flex-basis: 100%;
+} */
+
+/* .flex-container > div {
+    display: inline-block;
+    margin: 100px;
+    padding: 20px;
+    border-color: black;
+    font-size: 100px;
+    background-size: 150px;
+    width: 110px;
+    height: 110px;
+} */
+
+.flip-card-container {
+    display: flex;
+    justify-content: center;
+}
+
+/* The flip card container - set the width and height to whatever you want. We have added the border property to demonstrate that the flip itself goes out of the box on hover (remove perspective if you don't want the 3D effect */
+.flip-card {
+display: flex;
+justify-content: center;
+position: relative;
+flex-basis: auto;
+background-color: transparent;
+width: 100%;
+height: clamp(200px, 50vh, 700px);
+/* padding-bottom: clamp(62.5%, 55vh, 1000px); */
+padding-bottom: 20px;
+/* border: 1px solid #f1f1f1; */
+/* perspective: 1000px; */
+}
+
+/* This container is needed to position the front and back side */
+.flip-card-inner {
+justify-content: center;
+position: absolute;
+width: 100%;
+height: 100%;
+text-align: center;
+transition: transform 0.8s;
+transform-style: preserve-3d;
+}
+
+
+/* Rotates the card when it is flipped. Remove and add 
+.flip-card:active .flip-card-inner
+to the hover class below if you want it to only rotate on hover/press */
+/* .cardRotation */
+.flip-card:active .flip-card-inner
+{
+transform: rotateY(180deg);
+}
+.resetCardRotation
+{
+transform: rotateY(0deg);
+}
+
+/* 
+.flip-card:active .flip-card-inner */
+/* Do an horizontal flip when you move the mouse over the flip box container */
+.flip-card:hover .flip-card-inner
+{
+transform: rotateY(180deg);
+}
+
+/* Position the front and back side */
+.flip-card-front, .flip-card-back {
+border-radius: 5%;
+justify-content: center;
+position: absolute;
+width: 100%;
+height: 100%;
+-webkit-backface-visibility: hidden; /* Safari */
+backface-visibility: hidden;
+}
+
+.flip-card-front > img, .flip-card-back > img {
+    border-style: solid;
+    /* Sets the width to 71% of the height */
+    width: calc(.71 * clamp(300px, 50vh, 700px));
+    height: clamp(300px, 50vh, 700px);
+    border-width: 5px;
+    border-radius: 25px;
+    border-color: white;
+} 
+
+/* Style the front side (fallback if image is missing) */
+.flip-card-front {
+color: black;
+}
+
+/* Style the back side */
+.flip-card-back {
+color: white;
+transform: rotateY(180deg);
+} 
