@@ -36,7 +36,7 @@ const http = require('http');
 const server = http.createServer(app);
 const io = require('socket.io')(server,{
   cors: {
-    origin: "*",
+    origin: true,
     methods: ["GET", "POST"],
     allowedHeaders: ['Access-Control-Allow-Private-Network: true', 'Access-Control-Allow-Origin: *'],
 

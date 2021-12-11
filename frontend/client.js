@@ -1,8 +1,8 @@
 //Establishing a connection with the server on port 3000
-const socket = io('http://localhost:3000');
+// const socket = io('http://localhost:3000');
 
 //heroku server
-//const socket = io("https://serene-peak-32376.herokuapp.com/");
+const socket = io("https://serene-peak-32376.herokuapp.com/");
 
 var chosenRoom;
 var currentBackground;
