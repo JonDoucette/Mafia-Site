@@ -253,5 +253,4 @@ function getNewHostOnDisconnect(user, chosenRoom) {
         break;
       }
     }
-}
-});
+};
