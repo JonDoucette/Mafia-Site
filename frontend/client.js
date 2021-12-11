@@ -91,21 +91,21 @@ logoutButton.addEventListener('click', () => {
 
 // Rotates the card if the user clicks on the card (made for Mobile use)
 //Remove if you want it to only flip when the card is actively being touched 
-document.getElementById("roleCard").addEventListener("click", rotateRoleCard);
-function rotateRoleCard()
-{
-  const element = document.getElementById("roleCardInner")
+// document.getElementById("roleCard").addEventListener("click", rotateRoleCard);
+// function rotateRoleCard()
+// {
+//   const element = document.getElementById("roleCardInner")
   
-  if (element.classList.contains('cardRotation'))
-  {
-    element.classList.remove('cardRotation')
-    element.classList.add('resetCardRotation')
-  }
-  else{
-    element.classList.remove('resetCardRotation')
-    element.classList.add('cardRotation')
-  }
-}
+//   if (element.classList.contains('cardRotation'))
+//   {
+//     element.classList.remove('cardRotation')
+//     element.classList.add('resetCardRotation')
+//   }
+//   else{
+//     element.classList.remove('resetCardRotation')
+//     element.classList.add('cardRotation')
+//   }
+// }
 
 //Hides the room submission values when client joins a room
 function hideRoomValues(){
